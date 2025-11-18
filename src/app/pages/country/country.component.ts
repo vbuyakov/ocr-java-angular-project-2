@@ -7,7 +7,8 @@ import Chart from 'chart.js/auto';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
-  styleUrls: ['./country.component.scss']
+  styleUrls: ['./country.component.scss'],
+  standalone: false,
 })
 export class CountryComponent implements OnInit {
   private olympicUrl = './assets/mock/olympic.json';
