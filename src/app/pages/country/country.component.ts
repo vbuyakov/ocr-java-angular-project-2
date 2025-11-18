@@ -1,6 +1,6 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router, RouterLink} from '@angular/router';
 import Chart from 'chart.js/auto';
 
 
@@ -8,7 +8,8 @@ import Chart from 'chart.js/auto';
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [RouterLink],
 })
 export class CountryComponent implements OnInit {
   private olympicUrl = './assets/mock/olympic.json';
