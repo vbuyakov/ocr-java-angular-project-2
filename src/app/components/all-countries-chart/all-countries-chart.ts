@@ -1,5 +1,7 @@
 import { Component, inject, Input, OnChanges, SimpleChanges, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 import Chart from 'chart.js/auto';
 import { Logger } from '../../services/logger';
 
@@ -13,14 +15,31 @@ import { Logger } from '../../services/logger';
 export class AllCountriesChart implements OnChanges, AfterViewInit, OnDestroy {
   private router = inject(Router);
   private logger = inject(Logger);
+  private breakpointObserver = inject(BreakpointObserver);
 
   @Input() countries: string[] = [];
   @Input() medals: number[] = [];
   @ViewChild('chartCanvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   private pieChart?: Chart<"pie", number[], string>;
+  private isMobile = false;
 
   ngAfterViewInit() {
+    // Initialize mobile state synchronously
+    this.isMobile = this.breakpointObserver.isMatched([Breakpoints.Handset, Breakpoints.Tablet]);
+
+    // Observe breakpoint changes
+    this.breakpointObserver
+      .observe([Breakpoints.Handset, Breakpoints.Tablet])
+      .pipe(map(result => result.matches))
+      .subscribe(isMobile => {
+        this.isMobile = isMobile;
+        // Rebuild chart when breakpoint changes
+        if (this.countries.length > 0 && this.medals.length > 0) {
+          setTimeout(() => this.buildChart(), 0);
+        }
+      });
+
     if (this.countries.length > 0 && this.medals.length > 0) {
       this.buildChart();
     }
@@ -70,7 +89,10 @@ export class AllCountriesChart implements OnChanges, AfterViewInit, OnDestroy {
           }],
         },
         options: {
-          aspectRatio: 2.5,
+          // Use smaller aspectRatio on mobile (makes chart taller/more visible)
+          aspectRatio: this.isMobile ? 1.2 : 2.5,
+          responsive: true,
+          maintainAspectRatio: true,
           onClick: (e) => {
             if (e.native && this.pieChart) {
               try {
