@@ -26,11 +26,11 @@ export class AllCountriesChart implements OnChanges, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // Initialize mobile state synchronously
-    this.isMobile = this.breakpointObserver.isMatched([Breakpoints.Handset, Breakpoints.Tablet]);
+    this.isMobile = this.breakpointObserver.isMatched([Breakpoints.Handset]);
 
     // Observe breakpoint changes
     this.breakpointObserver
-      .observe([Breakpoints.Handset, Breakpoints.Tablet])
+      .observe([Breakpoints.Handset])
       .pipe(map(result => result.matches))
       .subscribe(isMobile => {
         this.isMobile = isMobile;

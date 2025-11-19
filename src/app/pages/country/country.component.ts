@@ -5,13 +5,14 @@ import { DataService } from '../../services/data-service';
 import { Olympic } from '../../models/olympic-results';
 import { Loader } from '../../components/loader/loader';
 import { CountryMedalsChart } from '../../components/country-medals-chart/country-medals-chart';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss'],
   standalone: true,
-  imports: [RouterLink, Loader, CountryMedalsChart],
+  imports: [RouterLink, Loader, CountryMedalsChart, NgOptimizedImage],
 })
 export class CountryComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -54,15 +55,15 @@ export class CountryComponent implements OnInit {
       .subscribe((selectedCountry) => {
         this.titlePage = selectedCountry.country;
         this.totalEntries = selectedCountry.participations.length;
-        
+
         this.years = selectedCountry.participations.map((participation) => participation.year);
         const medalsData = selectedCountry.participations.map((participation) => participation.medalsCount);
         this.medals = medalsData;
         this.totalMedals = medalsData.reduce((acc, count) => acc + count, 0);
-        
+
         const athleteCounts = selectedCountry.participations.map((participation) => participation.athleteCount);
         this.totalAthletes = athleteCounts.reduce((acc, count) => acc + count, 0);
-        
+
         this.loading = false;
       });
   }
