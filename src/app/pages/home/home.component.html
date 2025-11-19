@@ -1,20 +1,22 @@
-<h2>Olympic games app</h2>
-<hr/>
-<div>
+@if (loading) {
+  <app-loader></app-loader>
+} @else {
   <div>
-    <div class="center">
-      <div>{{ titlePage }}</div>
-    </div>
-    <div class="split">
-      <div>
-        <p>Number of countries</p>
-        <p>{{ totalCountries }}</p>
+    <div>
+      <div class="center">
+        <div>{{ titlePage }}</div>
       </div>
-      <div>
-        <p>Number of JOs</p>
-        <p>{{ totalJOs }}</p>
+      <div class="split">
+        <div>
+          <p>Number of countries</p>
+          <p>{{ totalCountries }}</p>
+        </div>
+        <div>
+          <p>Number of JOs</p>
+          <p>{{ totalJOs }}</p>
+        </div>
       </div>
     </div>
+    <app-all-countries-chart [countries]="countries" [medals]="medals"></app-all-countries-chart>
   </div>
-  <canvas id="DashboardPieChart">{{ pieChart }}</canvas>
-</div>
+}

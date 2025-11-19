@@ -1,30 +1,34 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import Chart from 'chart.js/auto';
 import { switchMap, catchError, EMPTY, of } from 'rxjs';
 import { DataService } from '../../services/data-service';
 import { Olympic } from '../../models/olympic-results';
+import { Loader } from '../../components/loader/loader';
+import { CountryMedalsChart } from '../../components/country-medals-chart/country-medals-chart';
 
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss'],
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, Loader, CountryMedalsChart],
 })
 export class CountryComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private dataService = inject(DataService);
 
-  public lineChart!: Chart<"line", string[], number>;
   public titlePage: string = '';
   public totalEntries: number = 0;
   public totalMedals: number = 0;
   public totalAthletes: number = 0;
   public error!: string;
+  public loading: boolean = true;
+  public years: number[] = [];
+  public medals: number[] = [];
 
   ngOnInit() {
+    this.loading = true;
     this.route.paramMap
       .pipe(
         switchMap((param) => {
@@ -51,34 +55,15 @@ export class CountryComponent implements OnInit {
         this.titlePage = selectedCountry.country;
         this.totalEntries = selectedCountry.participations.length;
         
-        const years = selectedCountry.participations.map((participation) => participation.year);
-        const medals = selectedCountry.participations.map((participation) => participation.medalsCount);
-        this.totalMedals = medals.reduce((acc, count) => acc + count, 0);
+        this.years = selectedCountry.participations.map((participation) => participation.year);
+        const medalsData = selectedCountry.participations.map((participation) => participation.medalsCount);
+        this.medals = medalsData;
+        this.totalMedals = medalsData.reduce((acc, count) => acc + count, 0);
         
         const athleteCounts = selectedCountry.participations.map((participation) => participation.athleteCount);
         this.totalAthletes = athleteCounts.reduce((acc, count) => acc + count, 0);
         
-        this.buildChart(years, medals.map(String));
+        this.loading = false;
       });
-  }
-
-  buildChart(years: number[], medals: string[]) {
-    const lineChart = new Chart("countryChart", {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: "medals",
-            data: medals,
-            backgroundColor: '#0b868f'
-          },
-        ]
-      },
-      options: {
-        aspectRatio: 2.5
-      }
-    });
-    this.lineChart = lineChart;
   }
 }
