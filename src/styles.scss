@@ -28,7 +28,7 @@
         border: solid #0b868f 1px;
         border-radius: 10px;
         color: gray;
-        margin: 0px;
+        margin: 0;
 
         p {
             text-align: center;
@@ -40,5 +40,42 @@
             color: black;
         }
     }
+}
+
+/* Accessibility: Visible focus states for keyboard navigation */
+a:focus,
+button:focus,
+[tabindex]:focus {
+    outline: 2px solid #0b868f;
+    outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid #0b868f;
+    outline-offset: 2px;
+}
+
+/* Route transition animations using View Transitions API - Fade effect */
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+/* Apply fade animations to all route transitions */
+::view-transition-old(main-content) {
+    animation: 600ms ease-out both fade-out;
+}
+
+::view-transition-new(main-content) {
+    animation: 600ms ease-out both fade-in;
 }
 

@@ -1,30 +1,40 @@
-<div>
+@if (loading) {
+  <app-loader></app-loader>
+} @else {
   <div>
+    <div>
+      <div class="center">
+        <nav class="breadcrumb">
+          <a routerLink="/" class="breadcrumb-button" aria-label="Go to home page">
+            <img ngSrc="assets/images/pie-chart-fill.svg" alt="Home" height="16" width="16" aria-hidden="true"/>
+          </a>
+          <span class="breadcrumb-separator">>></span>
+          <div class="breadcrumb-button active">{{ titlePage }}</div>
+        </nav>
+      </div>
+      <div class="split">
+        <div>
+          <p>Number of entries</p>
+          <p>{{ totalEntries }}</p>
+        </div>
+        <div>
+          <p>Total Number of medals</p>
+          <p>{{ totalMedals }}</p>
+        </div>
+        <div>
+          <p>Total Number of athletes</p>
+          <p>{{ totalAthletes }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="chart-container wrapper-container">
+      <div class="container">
+        <app-country-medals-chart [years]="years" [medals]="medals"></app-country-medals-chart>
+        <h2>Date</h2>
+      </div>
+    </div>
     <div class="center">
-      <div>{{ titlePage }}</div>
-    </div>
-    <div class="split">
-      <div>
-        <p>Number of entries</p>
-        <p>{{ totalEntries }}</p>
-      </div>
-      <div>
-        <p>Total Number of medals</p>
-        <p>{{ totalMedals }}</p>
-      </div>
-      <div>
-        <p>Total Number of athletes</p>
-        <p>{{ totalAthletes }}</p>
-      </div>
+      <a routerLink="" aria-label="Go back to home page">Go back</a>
     </div>
   </div>
-  <div class="chart-container wrapper-container">
-    <div class="container">
-      <canvas id="countryChart">{{ lineChart }}</canvas>
-      <h2>Date</h2>
-    </div>
-  </div>
-  <div class="center">
-    <a routerLink="">Go back</a>
-  </div>
-</div>
+}
