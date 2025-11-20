@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { switchMap, catchError, EMPTY, of } from 'rxjs';
 import { DataService } from '../../services/data-service';
-import { Olympic } from '../../models/olympic-results';
 import { Loader } from '../../components/loader/loader';
 import { CountryMedalsChart } from '../../components/country-medals-chart/country-medals-chart';
 import {NgOptimizedImage} from "@angular/common";
@@ -23,7 +22,6 @@ export class CountryComponent implements OnInit {
   public totalEntries: number = 0;
   public totalMedals: number = 0;
   public totalAthletes: number = 0;
-  public error!: string;
   public loading: boolean = true;
   public years: number[] = [];
   public medals: number[] = [];

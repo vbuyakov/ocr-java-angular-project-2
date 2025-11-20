@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, delay, map, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Olympic, OlympicResults } from '../models/olympic-results';
 import { Logger } from './logger';
@@ -20,7 +20,6 @@ export class DataService {
   getResults(): Observable<OlympicResults> {
     this.logger.debug('Fetching Olympic results from', this.apiUrl);
     return this.http.get<OlympicResults>(this.apiUrl).pipe(
-      delay(1000), // Simulate server delay (1 second)
       map((data) => {
         this.logger.log('Olympic results loaded successfully', { count: data.length });
         return data;

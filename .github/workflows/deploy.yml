@@ -3,8 +3,7 @@ name: Build and deploy Angular app
 on:
   push:
     branches:
-      - main
-      - exercice1   # change if you use another branch
+      - main # change if you use another branch
 
 jobs:
   build-and-deploy:

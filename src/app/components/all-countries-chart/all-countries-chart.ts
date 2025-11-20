@@ -24,6 +24,17 @@ export class AllCountriesChart implements OnChanges, AfterViewInit, OnDestroy {
   private pieChart?: Chart<"pie", number[], string>;
   private isMobile = false;
 
+  get chartAriaLabel(): string {
+    if (this.countries.length === 0 || this.medals.length === 0) {
+      return 'Medals per country chart - No data available';
+    }
+    const totalMedals = this.medals.reduce((sum, count) => sum + count, 0);
+    const countryList = this.countries.map((country, index) => 
+      `${country}: ${this.medals[index]} medals`
+    ).join(', ');
+    return `Pie chart showing medals per country. Total medals: ${totalMedals}. ${countryList}`;
+  }
+
   ngAfterViewInit() {
     // Initialize mobile state synchronously
     this.isMobile = this.breakpointObserver.isMatched([Breakpoints.Handset]);

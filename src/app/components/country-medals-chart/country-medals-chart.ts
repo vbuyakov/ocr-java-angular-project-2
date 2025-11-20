@@ -18,6 +18,17 @@ export class CountryMedalsChart implements OnChanges, AfterViewInit, OnDestroy {
 
   private lineChart?: Chart<"line", string[], number>;
 
+  get chartAriaLabel(): string {
+    if (this.years.length === 0 || this.medals.length === 0) {
+      return 'Medal evolution chart - No data available';
+    }
+    const medalData = this.years.map((year, index) => 
+      `${year}: ${this.medals[index]} medals`
+    ).join(', ');
+    const totalMedals = this.medals.reduce((sum, count) => sum + count, 0);
+    return `Line chart showing medal evolution over time. Total medals: ${totalMedals}. ${medalData}`;
+  }
+
   ngAfterViewInit() {
     if (this.years.length > 0 && this.medals.length > 0) {
       this.buildChart();

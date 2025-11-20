@@ -1,12 +1,24 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .loader-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  width: 100%;
   padding: 2rem;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .spinner {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 48px;
+  margin-top: 64px;
 }
 
 .spinner-icon {
@@ -14,6 +26,7 @@
   height: 48px;
   color: #0b868f;
   animation: spin 1s linear infinite;
+  display: block;
 }
 
 @keyframes spin {

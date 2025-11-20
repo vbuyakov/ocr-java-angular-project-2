@@ -5,8 +5,8 @@
     <div>
       <div class="center">
         <nav class="breadcrumb">
-          <a routerLink="/" class="breadcrumb-button">
-            <img ngSrc="assets/images/pie-chart-fill.svg" alt="Home" height="16" width="16"/>
+          <a routerLink="/" class="breadcrumb-button" aria-label="Go to home page">
+            <img ngSrc="assets/images/pie-chart-fill.svg" alt="Home" height="16" width="16" aria-hidden="true"/>
           </a>
           <span class="breadcrumb-separator">>></span>
           <div class="breadcrumb-button active">{{ titlePage }}</div>
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="center">
-      <a routerLink="">Go back</a>
+      <a routerLink="" aria-label="Go back to home page">Go back</a>
     </div>
   </div>
 }
