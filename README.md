@@ -2,6 +2,9 @@
 
 A modern Angular 20 application for visualizing Olympic Games statistics. This application displays medal counts by country and provides detailed views for individual countries with interactive charts.
 
+🔗 **Live Demo**: [https://ocr-java-angular-projet-2.buyakov.com](https://ocr-java-angular-projet-2.buyakov.com)  
+📦 **Repository**: [GitHub Repository](https://github.com/vbuyakov/ocr-java-angular-project-2)
+
 ## Features
 
 - 📊 **Interactive Charts**: Pie chart showing medals per country and line chart showing medal evolution over time
@@ -23,7 +26,7 @@ A modern Angular 20 application for visualizing Olympic Games statistics. This a
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone git@github.com:vbuyakov/ocr-java-angular-project-2.git
 cd ocr-java-angular-project-2
 ```
 
